@@ -2,10 +2,10 @@
 <div>
     <h2>{{ question.question }}</h2>
 </div>
-<button @click="nextQuestion(choice1)">{{ choice1 }}</button>
-<button @click="nextQuestion(choice2)">{{ choice2 }}</button>
-<button @click="nextQuestion(choice3)">{{ choice3 }}</button>
-<button @click="nextQuestion(choice4)">{{ choice4 }}</button>
+<button @click="submitAnswer(choice1, question)">{{ choice1 }}</button>
+<button @click="submitAnswer(choice2, question)">{{ choice2 }}</button>
+<button @click="submitAnswer(choice3, question)">{{ choice3 }}</button>
+<button @click="submitAnswer(choice4, question)">{{ choice4 }}</button>
 </template>
 
 
@@ -25,6 +25,13 @@ const choice4 = "Choice 4"
 const randomizeChoices = () => {
 
     console.log("Coices randomized")
+}
+
+const emit = defineEmits(['submit-answer'])
+
+const submitAnswer = (choice, question) => {
+    question.show_question = false
+    
 }
 </script>
 
