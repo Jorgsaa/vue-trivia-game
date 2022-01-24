@@ -3,7 +3,7 @@
  * Dependencies
  * @ignore
  */
- import { createRouter, createWebHistory } from "vue-router";
+ import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
  import Start from "./views/Start.vue";
  import NotFound from "./views/NotFound.vue";
  import Question from './views/Question.vue';
@@ -43,7 +43,7 @@
   * @ignore
   */
  export default createRouter({
-     history: createWebHistory( 
+     history: createWebHashHistory( 
          process.env.NODE_ENV === 'production' ? process.env.VITE_BASE_PUBLIC_PATH : undefined
      ),
      routes,
