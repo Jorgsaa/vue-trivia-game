@@ -3,10 +3,10 @@
     <h2>{{ question.question }}</h2>
     <p>Question: {{ question.number }}/{{numberOfQuestions}}</p>
 </div>
-<button @click="submitAnswer(choice1)">{{ choice1 }}</button>
-<button @click="submitAnswer(choice2)">{{ choice2 }}</button>
-<button @click="submitAnswer(choice3)" v-if="question.type === 'multiple'">{{ choice3 }}</button>
-<button @click="submitAnswer(choice4)" v-if="question.type === 'multiple'">{{ choice4 }}</button>
+<button class="choice choice1" @click="submitAnswer(choice1)">{{ choice1 }}</button>
+<button class="choice choice2" @click="submitAnswer(choice2)">{{ choice2 }}</button>
+<button class="choice choice3" @click="submitAnswer(choice3)" v-if="question.type === 'multiple'">{{ choice3 }}</button>
+<button class="choice choice4" @click="submitAnswer(choice4)" v-if="question.type === 'multiple'">{{ choice4 }}</button>
 </template>
 
 
@@ -72,7 +72,7 @@ const shuffle = (array) => {
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex], array[currentIndex]]
   }
-  
+
   return array
 }
 
@@ -87,5 +87,22 @@ const submitAnswer = (choice) => {
 
 
 <style scoped>
-
+.choice {
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+}
+.choice1 {
+    background: rgb(139, 162, 238);
+}
+.choice2 {
+    background: rgb(249, 130, 130);
+}
+.choice3 {
+    background: rgb(254, 254, 131);
+}
+.choice4 {
+    background: rgb(130, 218, 130);
+}
 </style>

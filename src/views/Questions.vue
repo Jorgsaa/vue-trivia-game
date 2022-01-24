@@ -34,3 +34,8 @@ const nextQuestion = () => {
 }
 
 </script>
+
+
+<style scoped>
+    
+</style>
