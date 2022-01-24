@@ -50,12 +50,11 @@ const randomizeChoices = () => {
 
     // Randomize choices
     const randomizedChoices = shuffle(choices)
-
     choice1.value = randomizedChoices[0]
     choice2.value = randomizedChoices[1]
     choice3.value = randomizedChoices[2]
     choice4.value = randomizedChoices[3]
-    
+
     console.log("Coices randomized")
 }
 
@@ -73,7 +72,7 @@ const shuffle = (array) => {
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex], array[currentIndex]]
   }
-
+  
   return array
 }
 

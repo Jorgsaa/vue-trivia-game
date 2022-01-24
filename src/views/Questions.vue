@@ -3,7 +3,6 @@
     <div v-for="question in questions" :key="question.question">
         <Question :question="question" :answers="answers" :numberOfQuestions="questions.length" v-if="question.show_question" @next-question="nextQuestion" />
     </div>
-    <button @click="debug">Debug</button>
 </template>
 
 
@@ -13,12 +12,6 @@ import Question from '../components/Question.vue'
 import { useRouter } from 'vue-router'
 
     const router = useRouter();
-
-const debug = () => {
-    console.log(questions[1].show_question)
-    questions[0].show_question = false
-    questions[1].show_question = true
-}
 
 // Hardcoded questions
 const questions = reactive([
