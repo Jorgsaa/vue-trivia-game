@@ -3,10 +3,10 @@
     <h2>{{ question.question }}</h2>
     <p>Question: {{ question.number }}/{{numberOfQuestions}}</p>
 </div>
-<button @click="submitAnswer(choice1, question, answers)">{{ choice1 }}</button>
-<button @click="submitAnswer(choice2, question, answers)">{{ choice2 }}</button>
-<button @click="submitAnswer(choice3, question, answers)" v-if="question.type === 'multiple'">{{ choice3 }}</button>
-<button @click="submitAnswer(choice4, question, answers)" v-if="question.type === 'multiple'">{{ choice4 }}</button>
+<button @click="submitAnswer(choice1)">{{ choice1 }}</button>
+<button @click="submitAnswer(choice2)">{{ choice2 }}</button>
+<button @click="submitAnswer(choice3)" v-if="question.type === 'multiple'">{{ choice3 }}</button>
+<button @click="submitAnswer(choice4)" v-if="question.type === 'multiple'">{{ choice4 }}</button>
 </template>
 
 
@@ -79,9 +79,9 @@ const shuffle = (array) => {
 
 const emit = defineEmits(['next-question'])
 // Submit answer, hide current question, then go to next question
-const submitAnswer = (choice, question, answers) => {
-    question.show_question = false
-    answers.push({"question":question.question, "correct_answer":question.correct_answer, "answer":choice, "number":question.number})
+const submitAnswer = (choice) => {
+    props.question.show_question = false
+    props.answers.push({"question":props.question.question, "correct_answer":props.question.correct_answer, "answer":choice, "number":props.question.number})
     emit('next-question')
 }
 </script>
