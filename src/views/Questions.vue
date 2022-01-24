@@ -27,13 +27,15 @@ const questions = reactive([
 const answers = []
 
 const numberOfQuestions = questions.length
-const numberOfCurrentQuestion = ref(1)
+const indexOfCurrentQuestion = ref(0)
 
 
 const nextQuestion = () => {
-    numberOfCurrentQuestion.value++
-    questions[numberOfCurrentQuestion.value].show_question = true
-    console.log(numberOfCurrentQuestion.value)
+    indexOfCurrentQuestion.value++
+    if (indexOfCurrentQuestion.value < questions.length) {
+        questions[indexOfCurrentQuestion.value].show_question = true
+        console.log(indexOfCurrentQuestion.value)   
+    }
 }
 
 </script>
