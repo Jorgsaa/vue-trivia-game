@@ -1,7 +1,7 @@
 <template>
-<div>
-    <h2>{{ question.question }}</h2>
-    <p>Question: {{ question.number }}/{{numberOfQuestions}}</p>
+<div class="question-area">
+    <h2 class="question-title">{{ question.question }}</h2>
+    <p class="question-x-of-y">Question: {{ question.number }}/{{numberOfQuestions}}</p>
 </div>
 <div class="button-area">
     <button class="choice choice1" @click="submitAnswer(choice1)">{{ choice1 }}</button>
@@ -89,6 +89,17 @@ const submitAnswer = (choice) => {
 
 
 <style scoped>
+.question-area {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+.question-title {
+    font-size: 35px
+}
+.question-x-of-y {
+    grid-row: 1;
+    font-size: 20px;
+}
 .button-area {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -98,7 +109,7 @@ const submitAnswer = (choice) => {
     margin: 10px;
     border: none;
     border-radius: 5px;
-    font-size: 30px
+    font-size: 25px
 }
 .choice1 {
     background: rgb(139, 162, 238);
