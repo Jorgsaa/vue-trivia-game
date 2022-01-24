@@ -6,6 +6,9 @@
  import { createRouter, createWebHistory } from "vue-router";
  import Start from "./views/Start.vue";
  import NotFound from "./views/NotFound.vue";
+ import Question from './views/Question.vue';
+ import Result from './views/Result.vue';
+ 
  
  /**
   * Routes
@@ -16,6 +19,16 @@
          name: 'start',
          path: '/',
          component: Start,
+     },
+     {
+         name: 'question',
+         path: '/question',
+         component: Question,
+     },
+     {
+         name: 'result',
+         path: '/result',
+         component: Result,
      },
      // Catch all 404
      {
