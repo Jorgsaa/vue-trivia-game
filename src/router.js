@@ -31,7 +31,7 @@
   */
  export default createRouter({
      history: createWebHistory( 
-         process.env.NODE_ENV == "production" ? process.env.VITE_BASE_PUBLIC_PATH : "/" 
+         process.env.NODE_ENV === 'production' ? "/vue-trivia-game" : undefined
      ),
      routes,
  })
