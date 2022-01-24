@@ -30,6 +30,8 @@
   * @ignore
   */
  export default createRouter({
-     history: createWebHistory(),
+     history: createWebHistory( 
+         process.env.NODE_ENV == "production" ? process.env.VITE_BASE_PUBLIC_PATH : "/" 
+     ),
      routes,
  })
