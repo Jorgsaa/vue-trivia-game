@@ -1,4 +1,4 @@
-# assignment-2-trivia-game
+# Assignment 2: Trivia Game
 
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
@@ -8,25 +8,31 @@ TODO: Fill out this long description.
 
 ## Table of Contents
 
-- [Install](#install)
-- [Usage](#usage)
-- [Maintainers](#maintainers)
-- [Contributing](#contributing)
-- [License](#license)
+- [Assignment 2: Trivia Game](#assignment-2-trivia-game)
+  - [Table of Contents](#table-of-contents)
+  - [Install](#install)
+  - [Usage](#usage)
+  - [Maintainers](#maintainers)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 ## Install
 
 ```
+npm install
 ```
 
 ## Usage
 
 ```
+npm run dev
 ```
 
 ## Maintainers
 
-[@jorgsaa](https://github.com/jorgsaa)
+[Jonas Bergkvist Melå @Pucko321](https://github.com/Pucko321) \
+[Jonas Kristoffersen @jonaskris](https://github.com/jonaskris) \
+[Jørgen Saanum @jorgsaa](https://github.com/jorgsaa)
 
 ## Contributing
 
@@ -36,4 +42,4 @@ Small note: If editing the README, please conform to the [standard-readme](https
 
 ## License
 
-MIT © 2022 Jørgen Saanum
+MIT © 2022 Jonas Bergkvist Melå, Jonas Kristoffersen, Jørgen Saanum
