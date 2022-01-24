@@ -32,8 +32,8 @@
      },
      // Catch all 404
      {
+         name: 'not-found',
          path: '/:catchAll(.*)',
-         name: 'NotFound',
          component: NotFound,
      }
  ]
