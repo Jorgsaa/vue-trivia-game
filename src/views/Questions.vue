@@ -2,7 +2,7 @@
     <h1>Question</h1>
     <!-- <p>{{ numberOfCurrentQuestion }}/{{ numberOfQuestions }}</p> -->
     <div v-for="question in questions" :key="question.question">
-        <Question :question="question" :answers="answers" v-if="question.show_question" @next-question="nextQuestion" />
+        <Question :question="question" :answers="answers" :numberOfQuestions="questions.length" v-if="question.show_question" @next-question="nextQuestion" />
     </div>
     <button @click="debug">Debug</button>
 </template>
@@ -26,7 +26,6 @@ const questions = reactive([
 ])
 const answers = []
 
-const numberOfQuestions = questions.length
 const indexOfCurrentQuestion = ref(0)
 
 

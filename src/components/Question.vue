@@ -1,6 +1,7 @@
 <template>
 <div>
     <h2>{{ question.question }}</h2>
+    <p>Question: {{ question.number }}/{{numberOfQuestions}}</p>
 </div>
 <button @click="submitAnswer(choice1, question, answers)">{{ choice1 }}</button>
 <button @click="submitAnswer(choice2, question, answers)">{{ choice2 }}</button>
@@ -11,14 +12,18 @@
 
 <script setup>
 defineProps({
-  question: {
-      type: Object,
-      required: true,
-  },
-  answers: {
-      type: Array,
-      required: true,
-  }
+    numberOfQuestions: {
+        type: Number,
+        required: true,
+    },
+    question: {
+        type: Object,
+        required: true,
+    },
+    answers: {
+        type: Array,
+        required: true,
+    }
 })
 
 const choice1 = "Choice 1"
