@@ -31,13 +31,14 @@ const choice2 = "Choice 2"
 const choice3 = "Choice 3"
 const choice4 = "Choice 4"
 
+// Randomize correct and wrong answers to belong to different choices
 const randomizeChoices = () => {
 
     console.log("Coices randomized")
 }
 
 const emit = defineEmits(['next-question'])
-
+// Submit answer, hide current question, then go to next question
 const submitAnswer = (choice, question, answers) => {
     question.show_question = false
     answers.push({"question":question.question, "correct_answer":question.correct_answer, "answer":choice, "number":question.number})

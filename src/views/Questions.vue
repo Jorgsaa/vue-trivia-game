@@ -25,10 +25,9 @@ const questions = reactive([
     {"category":"Entertainment: Film","type":"multiple","difficulty":"easy","question":"In the 1995 film &quot;Balto&quot;, who are Steele&#039;s accomplices?","correct_answer":"Kaltag, Nikki, and Star","incorrect_answers":["Dusty, Kirby, and Ralph","Nuk, Yak, and Sumac","Jenna, Sylvie, and Dixie"],"show_question":false,"number":"3"},
 ])
 const answers = []
-
 const indexOfCurrentQuestion = ref(0)
 
-
+// Go to next question. If no more questions, got to Result.vue
 const nextQuestion = () => {
     indexOfCurrentQuestion.value++
     if (indexOfCurrentQuestion.value < questions.length) {
