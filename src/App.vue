@@ -5,6 +5,9 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <h1>GitHub Pages test</h1>
+  <router-link to="/">Start</router-link>
+  <router-link to="/question">Question</router-link>
+  <router-link to="/result">Result</router-link>
   <router-view />
 </template>
 
