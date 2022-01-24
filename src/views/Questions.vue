@@ -1,18 +1,14 @@
 <template>
     <h1>Question</h1>
-        <div>
-            <p>{{ numberOfCurrentQuestion }}/{{ numberOfQuestions }}</p>
-            <h2>{{ currentQuestion.question }}</h2>
+        <div v-for="question in questions" :key="question.question">
+            <Question :question="question" />
         </div>
-        <button @click="nextQuestion(choice1, $event)">{{ choice1 }}</button>
-        <button @click="nextQuestion(choice2, $event)">{{ choice2 }}</button>
-        <button @click="nextQuestion(choice3, $event)">{{ choice3 }}</button>
-        <button @click="nextQuestion(choice4, $event)">{{ choice4 }}</button>
 </template>
 
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted } from "vue";
+import Question from '../components/Question.vue'
 
 onMounted(() => {
     randomizeChoices()
@@ -26,7 +22,7 @@ const questions = [
 ]
 const numberOfQuestions = questions.length;
 const numberOfCurrentQuestion = ref(1)
-const currentQuestion = reactive(questions[numberOfCurrentQuestion.value-1])
+const indexOfCurrentQuestion = numberOfCurrentQuestion.value -1
 
 const choice1 = "Choice 1"
 const choice2 = "Choice 2"
@@ -39,10 +35,13 @@ const getRandomChoice = () => {
 }
 
 const nextQuestion = (choice, e) => {
+    numberOfCurrentQuestion.value++
+    console.log(numberOfCurrentQuestion.value)
     console.log(choice)
 }
 
 const randomizeChoices = () => {
+
     console.log("Coices randomized")
 }
 
