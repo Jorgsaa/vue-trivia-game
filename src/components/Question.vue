@@ -5,8 +5,8 @@
 </div>
 <button @click="submitAnswer(choice1, question, answers)">{{ choice1 }}</button>
 <button @click="submitAnswer(choice2, question, answers)">{{ choice2 }}</button>
-<button @click="submitAnswer(choice3, question, answers)">{{ choice3 }}</button>
-<button @click="submitAnswer(choice4, question, answers)">{{ choice4 }}</button>
+<button @click="submitAnswer(choice3, question, answers)" v-if="question.type === 'multiple'">{{ choice3 }}</button>
+<button @click="submitAnswer(choice4, question, answers)" v-if="question.type === 'multiple'">{{ choice4 }}</button>
 </template>
 
 
@@ -34,8 +34,8 @@ onMounted(() => {
     }
 })
 
-const choice1 = ref("Choice 1")
-const choice2 = ref("Choice 2")
+const choice1 = ref("True")
+const choice2 = ref("False")
 const choice3 = ref("Choice 3")
 const choice4 = ref("Choice 4")
 
