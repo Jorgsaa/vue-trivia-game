@@ -11,7 +11,9 @@
 
 
 <script setup>
-defineProps({
+import { onMounted, ref } from "vue"
+
+const props = defineProps({
     numberOfQuestions: {
         type: Number,
         required: true,
@@ -26,15 +28,53 @@ defineProps({
     }
 })
 
-const choice1 = "Choice 1"
-const choice2 = "Choice 2"
-const choice3 = "Choice 3"
-const choice4 = "Choice 4"
+onMounted(() => {
+    if (props.question.type === "multiple") {
+        randomizeChoices()
+    }
+})
+
+const choice1 = ref("Choice 1")
+const choice2 = ref("Choice 2")
+const choice3 = ref("Choice 3")
+const choice4 = ref("Choice 4")
 
 // Randomize correct and wrong answers to belong to different choices
 const randomizeChoices = () => {
+    // Create array with all choices
+    const choices = []
+    choices.push(props.question.correct_answer)
+    choices.push(props.question.incorrect_answers[0])
+    choices.push(props.question.incorrect_answers[1])
+    choices.push(props.question.incorrect_answers[2])
 
+    // Randomize choices
+    const randomizedChoices = shuffle(choices)
+
+    choice1.value = randomizedChoices[0]
+    choice2.value = randomizedChoices[1]
+    choice3.value = randomizedChoices[2]
+    choice4.value = randomizedChoices[3]
+    
     console.log("Coices randomized")
+}
+
+const shuffle = (array) => {
+  let currentIndex = array.length,  randomIndex
+
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex--
+
+    // Swap it with the current element
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]]
+  }
+
+  return array
 }
 
 const emit = defineEmits(['next-question'])
