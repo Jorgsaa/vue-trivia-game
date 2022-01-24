@@ -1,6 +1,5 @@
 <template>
     <h1>Question</h1>
-    <!-- <p>{{ numberOfCurrentQuestion }}/{{ numberOfQuestions }}</p> -->
     <div v-for="question in questions" :key="question.question">
         <Question :question="question" :answers="answers" :numberOfQuestions="questions.length" v-if="question.show_question" @next-question="nextQuestion" />
     </div>
@@ -11,6 +10,9 @@
 <script setup>
 import { ref, reactive } from "vue";
 import Question from '../components/Question.vue'
+import { useRouter } from 'vue-router'
+
+    const router = useRouter();
 
 const debug = () => {
     console.log(questions[1].show_question)
@@ -27,12 +29,14 @@ const questions = reactive([
 const answers = []
 const indexOfCurrentQuestion = ref(0)
 
-// Go to next question. If no more questions, got to Result.vue
+// Go to next question. If no more questions -> got to Result.vue
 const nextQuestion = () => {
+    console.log(answers[indexOfCurrentQuestion.value])
     indexOfCurrentQuestion.value++
     if (indexOfCurrentQuestion.value < questions.length) {
-        questions[indexOfCurrentQuestion.value].show_question = true
-        console.log(indexOfCurrentQuestion.value)   
+        questions[indexOfCurrentQuestion.value].show_question = true 
+    } else {
+        router.push({name: 'result'})
     }
 }
 
