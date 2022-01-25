@@ -49,6 +49,19 @@ const questionsSelected = ref(store.getters.getQuestionsSelected);
 const categorySelected = ref(store.getters.getQuestionCategory);
 const difficultySelected = ref(store.getters.getQuestionDifficulty);
 const typeSelected = ref(store.getters.getQuestionType);
+
+
+// Set trivia choices, create api-url, fetch api, set questions, go to Questions.vue to start playing
+const startTrivia = () => {
+  store.commit('setQuestionsSelected', questionsSelected);
+  store.commit('setQuestionCategory', categorySelected);
+  store.commit('setQuestionDifficulty', difficultySelected);
+  store.commit('setQuestionType', typeSelected);
+
+  const apiUrl = store.getters.getApiUrl;
+
+  console.log("Start")
+};
 </script>
 
 <template>
@@ -95,7 +108,7 @@ const typeSelected = ref(store.getters.getQuestionType);
   <br />
 
   <br />
-  <button type="button">Start</button>
+  <button type="button" @click="startTrivia">Start</button>
 </template>
 
 <style scoped>

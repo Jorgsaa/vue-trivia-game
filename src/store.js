@@ -68,6 +68,9 @@ const store = createStore({
         getQuestionCategory: (state) => {
             return state.questionCategory
         },
+        getApiUrl: (state) => {
+            return "url"
+        },
     },
 })
 
