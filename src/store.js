@@ -15,6 +15,7 @@ const store = createStore({
         questionType: 'any',
         questionCategory: 'any',
         apiUrlPath: "https://opentdb.com/api.php",
+        apiSessionToken: '',
         questions: [
             {"category":"Entertainment: Film","type":"multiple","difficulty":"easy","question":"Which of the following movies was not based on a novel by Stephen King? ","correct_answer":"The Thing","incorrect_answers":["Carrie","Misery","The Green Mile"],"show_question":true,"number":"1"},
             {"category":"Entertainment: Film","type":"boolean","difficulty":"easy","question":"The sky is blue","correct_answer":"True","incorrect_answers":["False"],"show_question":false,"number":"2"},
@@ -55,6 +56,9 @@ const store = createStore({
         emptyAnswers: (state) => {
             state.answers.length = 0
         },
+        setApiSessionToken: (state, payload) => {
+            state.apiSessionToken = payload;
+        }
     },
     getters: {
         getQuestionsSelected: (state) => {
@@ -76,7 +80,20 @@ const store = createStore({
             `&difficulty=${state.questionDifficulty}` +
             `&type=${state.questionType}`
         },
+        getApiSessionToken: (state) => {
+            return state.apiSessionToken;
+        }
     },
+    actions: {
+        fetchApiSessionToken (context) {
+            return fetch("https://opentdb.com/api_token.php?command=request")
+                .then((response) => response.json())
+                .then((data) => {
+                    context.commit("setApiSessionToken", data.token);
+                })
+                .catch((error) => console.log("Failed to fetch api session token! Error: " + error));
+        }
+    }
 })
 
 /**
