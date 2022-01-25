@@ -1,6 +1,10 @@
 <script setup>
 import { ref } from "vue";
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router'
+
+const store = useStore();
+const router = useRouter();
 
 const categories = {
   any: "Any Category",
@@ -44,7 +48,6 @@ const types = {
 };
 
 // Get default trivia options
-const store = useStore();
 const questionsSelected = ref(store.getters.getQuestionsSelected);
 const categorySelected = ref(store.getters.getQuestionCategory);
 const difficultySelected = ref(store.getters.getQuestionDifficulty);
@@ -61,6 +64,7 @@ const startTrivia = () => {
 
   // Create api-url
   const apiUrl = store.getters.getApiUrl;
+  console.log(`Api url: ${apiUrl}`);
 
   // fetch api
   //TODO
@@ -69,10 +73,7 @@ const startTrivia = () => {
   //TODO
 
   // Go to Questions.vue to start playing
-  
-
-  console.log(apiUrl)
-  console.log("Start")
+  router.push({name: 'question'})
 };
 </script>
 
