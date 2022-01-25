@@ -1,12 +1,13 @@
 <template>
     <ol v-for="(question, index) in questions" :key="index">
-        <ResultElement :question="question" :answer="answers[index]" />
+        <li>hei!</li>
+        <!--<ResultElement :question="question" :answer="answers[index]" />-->
     </ol>
 </template>
 
 <script setup>
 import { computed, reactive } from "vue";
-import ResultElement from "./ResultElement.vue";
+//import ResultElement from "./ResultElement.vue";
 import { useStore } from "vuex";
 const store = useStore();
 

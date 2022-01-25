@@ -7,7 +7,7 @@
 <script>
 import { ref } from "vue"
 
-const props = defineProps({
+/*const props = defineProps({
     question: {
         type: Object,
         required: true,
@@ -16,7 +16,7 @@ const props = defineProps({
         type: Object,
         required: true,
     }
-})
+})*/
 </script>
 
 <style scoped>
