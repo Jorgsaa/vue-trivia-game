@@ -1,13 +1,12 @@
 <template>
-    <ol v-for="(question, index) in questions" :key="index">
-        <li>hei!</li>
-        <!--<ResultElement :question="question" :answer="answers[index]" />-->
+    <ol>
+        <ResultElement v-for="(question, index) in questions" :key="index" :question="question" :answer="answers[index]" />
     </ol>
 </template>
 
 <script setup>
 import { computed, reactive } from "vue";
-//import ResultElement from "./ResultElement.vue";
+import ResultElement from "./ResultElement.vue";
 import { useStore } from "vuex";
 const store = useStore();
 
@@ -24,5 +23,7 @@ const answers = computed(() => store.state.answers);
         overflow: hidden;
         overflow-y: scroll;
         gap: 5px;
+
+        background-color: yellowgreen;
     }
 </style>
