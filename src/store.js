@@ -10,10 +10,10 @@ import { createStore } from 'vuex'
  */
 const store = createStore({
     state: {
-        questionsSelected: 0,
-        questionDifficulty: '',
-        questionType: '',
-        questionCategory: '',
+        questionsSelected: 10,
+        questionDifficulty: 'any',
+        questionType: 'any',
+        questionCategory: 'any',
         questions: [
             {"category":"Entertainment: Film","type":"multiple","difficulty":"easy","question":"Which of the following movies was not based on a novel by Stephen King? ","correct_answer":"The Thing","incorrect_answers":["Carrie","Misery","The Green Mile"],"show_question":true,"number":"1"},
             {"category":"Entertainment: Film","type":"boolean","difficulty":"easy","question":"The sky is blue","correct_answer":"True","incorrect_answers":["False"],"show_question":false,"number":"2"},
@@ -53,6 +53,20 @@ const store = createStore({
         },
         emptyAnswers: (state) => {
             state.answers.length = 0
+        },
+    },
+    getters: {
+        getQuestionsSelected: (state) => {
+            return state.questionsSelected
+        },
+        getQuestionDifficulty: (state) => {
+            return state.questionDifficulty
+        },
+        getQuestionType: (state) => {
+            return state.questionType
+        },
+        getQuestionCategory: (state) => {
+            return state.questionCategory
         },
     },
 })

@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useStore } from 'vuex';
 
 const categories = {
   any: "Any Category",
@@ -42,10 +43,12 @@ const types = {
   boolean: "True / False",
 };
 
-let questionsSelected = ref(10);
-let categorySelected = ref("any");
-let difficultySelected = ref("any");
-let typeSelected = ref("any");
+// Get default trivia options
+const store = useStore();
+let questionsSelected = store.getters.getQuestionsSelected;
+let categorySelected = store.getters.getQuestionCategory;
+let difficultySelected = store.getters.getQuestionDifficulty;
+let typeSelected = store.getters.getQuestionType;
 </script>
 
 <template>
