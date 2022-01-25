@@ -36,6 +36,9 @@ const store = createStore({
         setQuestionCategory: (state, payload) => {
             state.questionCategory = payload
         },
+        setQuestions: (state, payload) => {
+            state.questions = payload;
+        },
         addQuestion: (state, payload) => {
             state.questions.push(payload)
         },
@@ -78,7 +81,8 @@ const store = createStore({
             `?amount=${state.questionsSelected}` +
             `&category=${state.questionCategory}` +
             `&difficulty=${state.questionDifficulty}` +
-            `&type=${state.questionType}`
+            `&type=${state.questionType}` +
+            (state.apiSessionToken.length != 0 ? `&token=${state.apiSessionToken}` : ``)
         },
         getApiSessionToken: (state) => {
             return state.apiSessionToken;
@@ -92,6 +96,14 @@ const store = createStore({
                     context.commit("setApiSessionToken", data.token);
                 })
                 .catch((error) => console.log("Failed to fetch api session token! Error: " + error));
+        },
+        fetchQuestions (context) {
+            return fetch(context.getters.getApiUrl)
+                .then((response) => response.json())
+                .then((data) => {
+                    context.commit("setQuestions", data.results);
+                })
+                .catch((error) => console.log("Failed to fetch questions! Error: " + error))
         }
     }
 })
