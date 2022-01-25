@@ -66,11 +66,11 @@ const startTrivia = () => {
   const apiUrl = store.getters.getApiUrl;
   console.log(`Api url: ${apiUrl}`);
 
-  // fetch api
-  //TODO
+  // Fetch session token if there are none in store already
+  store.dispatch("fetchApiSessionToken")
 
-  // Set questions from fetched api
-  //TODO
+  // Fetch questions
+  store.dispatch("resetQuiz");
 
   // Go to Questions.vue to start playing
   router.push({name: 'question'})

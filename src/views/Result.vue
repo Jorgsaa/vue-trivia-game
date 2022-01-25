@@ -26,13 +26,12 @@ const scoreReducer = (acc, answer) => acc + (answer.answer === answer.correct_an
 const score = computed(() => answers.value.reduce(scoreReducer, 0));
 
 const homeClicked = () => {
-    router.push({name: "start"})
-        .then(() => store.dispatch("resetQuizKeepOptions"))
-        .catch((error) => console.log("Error on homeClicked! Error: ", error));
+    router.push({name: "start"});
+    // Quiz is reset when user presses "start" button in the "start" route
 };
 const playAgainClicked = () => {
     router.push({name: "question"})
-        .then(() => store.dispatch("resetQuizKeepOptions"))
+        .then(() => store.dispatch("resetQuiz"))
         .catch((error) => console.log("Error on playAgainClicked! Error: ", error));
 }
 </script>
