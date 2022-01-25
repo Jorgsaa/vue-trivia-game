@@ -26,11 +26,14 @@ const scoreReducer = (acc, answer) => acc + (answer.answer === answer.correct_an
 const score = computed(() => answers.value.reduce(scoreReducer, 0));
 
 const homeClicked = () => {
-    //router.push({name: "start"});
+    router.push({name: "start"})
+        .then(() => store.dispatch("resetQuizKeepOptions"))
+        .catch((error) => console.log("Error on homeClicked! Error: ", error));
 };
 const playAgainClicked = () => {
-    // Not implemented
-    //router.push({name: "question"});
+    router.push({name: "question"})
+        .then(() => store.dispatch("resetQuizKeepOptions"))
+        .catch((error) => console.log("Error on playAgainClicked! Error: ", error));
 }
 </script>
 

@@ -102,9 +102,22 @@ const store = createStore({
             return fetch(context.getters.getApiUrl)
                 .then((response) => response.json())
                 .then((data) => {
+                    data.results.forEach((question, index) => {
+                        if(index === 0) {
+                            question["show_question"] = true;
+                            question["number"] = (index+1).toString();
+                        } else {
+                            question["show_question"] = false;
+                            question["number"] = (index+1).toString();
+                        }
+                    });
                     context.commit("setQuestions", data.results);
                 })
                 .catch((error) => console.log("Failed to fetch questions! Error: " + error))
+        },
+        resetQuizKeepOptions(context) {
+            context.commit("emptyAnswers");
+            context.dispatch("fetchQuestions");
         }
     }
 })
