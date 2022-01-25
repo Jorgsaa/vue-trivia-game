@@ -74,10 +74,12 @@ const shuffle = (array) => {
 const emit = defineEmits(['next-question'])
 // Submit answer, hide current question, then go to next question
 const submitAnswer = (choice) => {
-    props.question.show_question = false
     store.commit('submitAnswer', {"question":props.question.question, "correct_answer":props.question.correct_answer, "answer":choice, "number":props.question.number})
+    props.question.show_question = false
+    // Was thinking of moving the logic of goint to the next question here to remove emit, but it makes more sence to have it in Questions.vue (don't need to have a variable that holds questions in a file meant for one question)
     emit('next-question')
 }
+
 
 onMounted(() => {
     if (props.question.type === "multiple") {
