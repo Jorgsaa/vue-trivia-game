@@ -2,20 +2,7 @@
     <section class="container">
         <h2>Results</h2>
         <p>Final score: X/Y</p>
-        <!--<ResultList />-->
-        <ol>
-            <li>Heisann0</li>
-            <li>Heisann1</li>
-            <li>Heisann2</li>
-            <li>Heisann2</li>
-            <li>Heisann2</li>
-            <li>Heisann2</li>
-            <li>Heisann2</li>
-            <li>Heisann2</li>
-            <li>Heisann2</li>
-            <li>Heisann2</li>
-            <li>Heisann2</li>
-        </ol>
+        <ResultList  />
         <div class="buttons">
             <button>Home</button>
             <button>Play again</button>
@@ -24,6 +11,12 @@
 </template>
 
 <script setup>
+import { ref, reactive } from 'vue';
+import { useStore, mapState } from 'vuex';
+import ResultList from '../components/ResultList.vue';
+import { useRouter } from 'vue-router';
+
+
 
 </script>
 
