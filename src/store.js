@@ -78,10 +78,11 @@ const store = createStore({
         },
         getApiUrl: (state) => {
             return state.apiUrlPath +
-            `?amount=${state.questionsSelected}` +
-            `&category=${state.questionCategory}` +
-            `&difficulty=${state.questionDifficulty}` +
-            `&type=${state.questionType}` +
+            `?` +
+            `&amount=${state.questionsSelected}` +
+            (state.questionCategory !== `any` ? `&category=${state.questionCategory}` : ``) +
+            (state.questionDifficulty !== `any` ? `&difficulty=${state.questionDifficulty}` : ``) +
+            (state.questionType !== `any` ? `&type=${state.questionType}` : ``) +
             (state.apiSessionToken.length != 0 ? `&token=${state.apiSessionToken}` : ``)
         },
         getApiSessionToken: (state) => {
