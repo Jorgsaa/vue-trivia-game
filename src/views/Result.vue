@@ -1,23 +1,37 @@
 <template>
     <section class="container">
         <h2>Results</h2>
-        <p>Final score: X/Y</p>
+        <p>Final score: {{score}}/{{questions.length * 10}}</p>
         <ResultList  />
         <div class="buttons">
-            <button>Home</button>
-            <button>Play again</button>
+            <button @click="homeClicked">Home</button>
+            <button @click="playAgainClicked">Play again</button>
         </div>
     </section>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
-import { useStore, mapState } from 'vuex';
 import ResultList from '../components/ResultList.vue';
-import { useRouter } from 'vue-router';
+import { ref, reactive, computed } from "vue";
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 
+const store = useStore();
+const router = useRouter();
+const answers = computed(() => store.state.answers);
+const questions = computed(() => store.state.questions);
 
+const scoreReducer = (acc, answer) => acc + (answer.answer === answer.correct_answer ? 10 : 0);
+const score = computed(() => answers.value.reduce(scoreReducer, 0));
+
+const homeClicked = () => {
+    //router.push({name: "start"});
+};
+const playAgainClicked = () => {
+    // Not implemented
+    //router.push({name: "question"});
+}
 </script>
 
 <style scoped>

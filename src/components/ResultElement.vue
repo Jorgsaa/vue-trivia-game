@@ -1,13 +1,14 @@
 <template>
     <li>
-        <p>Question: {{question.question}}, answer: {{answer.correctAnswer}}</p>
+        Question: {{question.question}}, answer: {{answer.correct_answer}}
     </li>
 </template>
 
-<script>
-import { ref } from "vue"
+<script setup>
+import { onMounted, ref, computed } from "vue"
+import { useStore } from 'vuex'
 
-/*const props = defineProps({
+const props = defineProps({
     question: {
         type: Object,
         required: true,
@@ -16,12 +17,12 @@ import { ref } from "vue"
         type: Object,
         required: true,
     }
-})*/
+})
 </script>
 
 <style scoped>
     li {
         background-color: violet;
-        height: 50px;
+        overflow: hidden;
     }
 </style>
