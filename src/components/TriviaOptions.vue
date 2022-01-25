@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { useStore } from 'vuex';
 
 const categories = {
@@ -45,10 +45,10 @@ const types = {
 
 // Get default trivia options
 const store = useStore();
-let questionsSelected = store.getters.getQuestionsSelected;
-let categorySelected = store.getters.getQuestionCategory;
-let difficultySelected = store.getters.getQuestionDifficulty;
-let typeSelected = store.getters.getQuestionType;
+const questionsSelected = ref(store.getters.getQuestionsSelected);
+const categorySelected = ref(store.getters.getQuestionCategory);
+const difficultySelected = ref(store.getters.getQuestionDifficulty);
+const typeSelected = ref(store.getters.getQuestionType);
 </script>
 
 <template>
