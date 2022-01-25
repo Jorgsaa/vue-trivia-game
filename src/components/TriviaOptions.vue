@@ -1,5 +1,10 @@
 <script setup>
 import { ref } from "vue";
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router'
+
+const store = useStore();
+const router = useRouter();
 
 const categories = {
   any: "Any Category",
@@ -42,10 +47,34 @@ const types = {
   boolean: "True / False",
 };
 
-let questionsSelected = ref(10);
-let categorySelected = ref("any");
-let difficultySelected = ref("any");
-let typeSelected = ref("any");
+// Get default trivia options
+const questionsSelected = ref(store.getters.getQuestionsSelected);
+const categorySelected = ref(store.getters.getQuestionCategory);
+const difficultySelected = ref(store.getters.getQuestionDifficulty);
+const typeSelected = ref(store.getters.getQuestionType);
+
+
+
+const startTrivia = () => {
+  // Set trivia choices
+  store.commit('setQuestionsSelected', questionsSelected);
+  store.commit('setQuestionCategory', categorySelected);
+  store.commit('setQuestionDifficulty', difficultySelected);
+  store.commit('setQuestionType', typeSelected);
+
+  // Create api-url
+  const apiUrl = store.getters.getApiUrl;
+  console.log(`Api url: ${apiUrl}`);
+
+  // fetch api
+  //TODO
+
+  // Set questions from fetched api
+  //TODO
+
+  // Go to Questions.vue to start playing
+  router.push({name: 'question'})
+};
 </script>
 
 <template>
@@ -92,7 +121,7 @@ let typeSelected = ref("any");
   <br />
 
   <br />
-  <button type="button">Start</button>
+  <button type="button" @click="startTrivia">Start</button>
 </template>
 
 <style scoped>
