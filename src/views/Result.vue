@@ -1,7 +1,7 @@
 <template>
     <section class="container">
         <h2>Results</h2>
-        <p>Final score: {{score}}/{{questions.length * 10}}</p>
+        <p class="final-score">Final score: {{score}}/{{questions.length * 10}}</p>
         <ResultList  />
         <div class="buttons">
             <button @click="homeClicked">Home</button>
@@ -48,7 +48,7 @@ const playAgainClicked = () => {
         overflow: hidden;
     }
 
-    h2 {
+    h2, .final-score {
         text-align: center;
     }
 
@@ -67,13 +67,13 @@ const playAgainClicked = () => {
         background-color: violet;
     }
 
-    .container > * {
-        border-style: solid;
-    }
-
     .buttons {
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-around;
+    }
+
+    .buttons > button {
+        padding: 20px;
     }
 </style>

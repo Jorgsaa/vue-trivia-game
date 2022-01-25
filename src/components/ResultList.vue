@@ -1,6 +1,6 @@
 <template>
     <ol>
-        <ResultElement v-for="(question, index) in questions" :key="index" :question="question" :answer="answers[index]" />
+        <ResultElement v-for="(question, index) in questions" :key="index" :questionIndex="index" :question="question" :answer="answers[index]" />
     </ol>
 </template>
 
@@ -23,7 +23,5 @@ const answers = computed(() => store.state.answers);
         overflow: hidden;
         overflow-y: scroll;
         gap: 5px;
-
-        background-color: yellowgreen;
     }
 </style>
