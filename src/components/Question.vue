@@ -75,7 +75,7 @@ const emit = defineEmits(['next-question'])
 // Submit answer, hide current question, then go to next question
 const submitAnswer = (choice) => {
     props.question.show_question = false
-    answers.value.push({"question":props.question.question, "correct_answer":props.question.correct_answer, "answer":choice, "number":props.question.number})
+    store.commit('submitAnswer', {"question":props.question.question, "correct_answer":props.question.correct_answer, "answer":choice, "number":props.question.number})
     emit('next-question')
 }
 
