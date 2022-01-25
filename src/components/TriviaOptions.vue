@@ -60,6 +60,8 @@ const startTrivia = () => {
 
   const apiUrl = store.getters.getApiUrl;
 
+
+  console.log(apiUrl)
   console.log("Start")
 };
 </script>

@@ -14,6 +14,7 @@ const store = createStore({
         questionDifficulty: 'any',
         questionType: 'any',
         questionCategory: 'any',
+        apiUrlPath: "https://opentdb.com/api.php",
         questions: [
             {"category":"Entertainment: Film","type":"multiple","difficulty":"easy","question":"Which of the following movies was not based on a novel by Stephen King? ","correct_answer":"The Thing","incorrect_answers":["Carrie","Misery","The Green Mile"],"show_question":true,"number":"1"},
             {"category":"Entertainment: Film","type":"boolean","difficulty":"easy","question":"The sky is blue","correct_answer":"True","incorrect_answers":["False"],"show_question":false,"number":"2"},
@@ -69,7 +70,11 @@ const store = createStore({
             return state.questionCategory
         },
         getApiUrl: (state) => {
-            return "url"
+            return state.apiUrlPath +
+            `?amount=${state.questionsSelected}` +
+            `&category=${state.questionCategory}` +
+            `&difficulty=${state.questionDifficulty}` +
+            `&type=${state.questionType}`
         },
     },
 })
