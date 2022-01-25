@@ -13,7 +13,8 @@
 
 
 <script setup>
-import { onMounted, ref } from "vue"
+import { onMounted, ref, computed } from "vue"
+import { useStore } from 'vuex'
 
 const props = defineProps({
     numberOfQuestions: {
@@ -24,18 +25,10 @@ const props = defineProps({
         type: Object,
         required: true,
     },
-    answers: {
-        type: Array,
-        required: true,
-    }
 })
 
-onMounted(() => {
-    if (props.question.type === "multiple") {
-        randomizeChoices()
-    }
-})
-
+const store = useStore()
+const answers = computed(() => store.state.answers)
 const choice1 = ref("True")
 const choice2 = ref("False")
 const choice3 = ref("Choice 3")
@@ -82,9 +75,15 @@ const emit = defineEmits(['next-question'])
 // Submit answer, hide current question, then go to next question
 const submitAnswer = (choice) => {
     props.question.show_question = false
-    props.answers.push({"question":props.question.question, "correct_answer":props.question.correct_answer, "answer":choice, "number":props.question.number})
+    answers.value.push({"question":props.question.question, "correct_answer":props.question.correct_answer, "answer":choice, "number":props.question.number})
     emit('next-question')
 }
+
+onMounted(() => {
+    if (props.question.type === "multiple") {
+        randomizeChoices()
+    }
+})
 </script>
 
 
