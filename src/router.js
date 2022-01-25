@@ -6,7 +6,7 @@
  import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
  import Start from "./views/Start.vue";
  import NotFound from "./views/NotFound.vue";
- import Question from './views/Question.vue';
+ import Question from './views/Questions.vue';
  import Result from './views/Result.vue';
  
  
