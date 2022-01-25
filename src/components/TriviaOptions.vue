@@ -62,10 +62,6 @@ const startTrivia = () => {
   store.commit('setQuestionDifficulty', difficultySelected);
   store.commit('setQuestionType', typeSelected);
 
-  // Create api-url
-  const apiUrl = store.getters.getApiUrl;
-  console.log(`Api url: ${apiUrl}`);
-
   // Fetch session token if there are none in store already
   store.dispatch("fetchApiSessionToken")
 
@@ -108,16 +104,6 @@ const startTrivia = () => {
       {{ type }}
     </option>
   </select>
-  <br />
-
-  <!-- TODO: pass this url or these parameters to the Question view (?) -->
-  {{
-    (`https://opentdb.com/api.php?amount=${questionsSelected > 0 && questionsSelected <= 50 ? questionsSelected : 10}`) + 
-  (categorySelected !== "any" ? `&category=${categorySelected}` : "") +
-  (difficultySelected !== "any" ? `&difficulty=${difficultySelected}` : "") +
-  (typeSelected !== "any" ? `&type=${typeSelected !== "any" ? typeSelected : null}` :  "")
-  }}
-
   <br />
 
   <br />
