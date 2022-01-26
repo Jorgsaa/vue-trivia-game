@@ -16,6 +16,8 @@ const store = createStore({
         questionType: 'any',
         questionCategory: 'any',
         apiUrlPath: "https://opentdb.com/api.php",
+        triviaURL: "https://jorgsaa-noroff-assignment-api.herokuapp.com/trivia",
+        triviaToken: "uEzYwhrkm0OmaPQRfHSqz2OsKL8nsxK3AiqVkJkPjCv2lbiLnDyDkzOCGMm1A1gG",
         apiSessionToken: '',
         questions: [],
         indexOfCurrentQuestion: 0,
@@ -104,6 +106,12 @@ const store = createStore({
             (state.questionDifficulty !== `any` ? `&difficulty=${state.questionDifficulty}` : ``) +
             (state.questionType !== `any` ? `&type=${state.questionType}` : ``) +
             (state.apiSessionToken.length != 0 ? `&token=${state.apiSessionToken}` : ``)
+        },
+        getTriviaURL: (state) => {
+            return state.triviaURL
+        },
+        getTriviaToken: (state) => {
+            return state.triviaToken
         },
         getApiSessionToken: (state) => {
             return state.apiSessionToken;
