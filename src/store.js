@@ -16,11 +16,9 @@ const store = createStore({
         questionCategory: 'any',
         apiUrlPath: "https://opentdb.com/api.php",
         apiSessionToken: '',
-        questions: [
-            {"category":"Entertainment: Film","type":"multiple","difficulty":"easy","question":"Which of the following movies was not based on a novel by Stephen King? ","correct_answer":"The Thing","incorrect_answers":["Carrie","Misery","The Green Mile"],"show_question":true,"number":"1"},
-            {"category":"Entertainment: Film","type":"boolean","difficulty":"easy","question":"The sky is blue","correct_answer":"True","incorrect_answers":["False"],"show_question":false,"number":"2"},
-            {"category":"Entertainment: Film","type":"multiple","difficulty":"easy","question":"In the 1995 film &quot;Balto&quot;, who are Steele&#039;s accomplices?","correct_answer":"Kaltag, Nikki, and Star","incorrect_answers":["Dusty, Kirby, and Ralph","Nuk, Yak, and Sumac","Jenna, Sylvie, and Dixie"],"show_question":false,"number":"3"},
-        ],
+        questions: [],
+        indexOfCurrentQuestion: 0,
+        numberOfQuestions: 0,
         answers: [],
     },
     mutations: {
@@ -35,6 +33,15 @@ const store = createStore({
         },
         setQuestionCategory: (state, payload) => {
             state.questionCategory = payload
+        },
+        setQuestions: (state, payload) => {
+            state.questions = payload;
+        },
+        setIndexOfCurrentQuestion: (state, payload) => {
+            state.indexOfCurrentQuestion = payload;
+        },
+        setNumberOfQuestions: (state) => {
+            state.numberOfQuestions = state.questions.length;
         },
         addQuestion: (state, payload) => {
             state.questions.push(payload)
@@ -58,6 +65,15 @@ const store = createStore({
         },
         setApiSessionToken: (state, payload) => {
             state.apiSessionToken = payload;
+        },
+        increaseIndexOfCurrentQuestion: (state) => {
+            state.indexOfCurrentQuestion++
+        },
+        showCurrentQuestion: (state) => {
+            store.state.questions[state.indexOfCurrentQuestion].show_question = true 
+        },
+        hideCurrentQuestion: (state) => {
+            store.state.questions[state.indexOfCurrentQuestion].show_question = false 
         }
     },
     getters: {
@@ -75,23 +91,55 @@ const store = createStore({
         },
         getApiUrl: (state) => {
             return state.apiUrlPath +
-            `?amount=${state.questionsSelected}` +
-            `&category=${state.questionCategory}` +
-            `&difficulty=${state.questionDifficulty}` +
-            `&type=${state.questionType}`
+            `?` +
+            `&amount=${state.questionsSelected}` +
+            (state.questionCategory !== `any` ? `&category=${state.questionCategory}` : ``) +
+            (state.questionDifficulty !== `any` ? `&difficulty=${state.questionDifficulty}` : ``) +
+            (state.questionType !== `any` ? `&type=${state.questionType}` : ``) +
+            (state.apiSessionToken.length != 0 ? `&token=${state.apiSessionToken}` : ``)
         },
         getApiSessionToken: (state) => {
             return state.apiSessionToken;
+        },
+        getNumberOfQuestions: (state) => {
+            return state.numberOfQuestions
+        },
+        getIndexOfCurrentQuestion: (state) => {
+            return state.indexOfCurrentQuestion
         }
     },
     actions: {
         fetchApiSessionToken (context) {
-            return fetch("https://opentdb.com/api_token.php?command=request")
+            if(context.getters.getApiSessionToken.length === 0) {
+                return fetch("https://opentdb.com/api_token.php?command=request")
                 .then((response) => response.json())
                 .then((data) => {
                     context.commit("setApiSessionToken", data.token);
                 })
                 .catch((error) => console.log("Failed to fetch api session token! Error: " + error));
+            }
+        },
+        fetchQuestions (context) {
+            return fetch(context.getters.getApiUrl)
+                .then((response) => response.json())
+                .then((data) => {
+                    data.results.forEach((question, index) => {
+                        if(index === 0) {
+                            question["show_question"] = true;
+                            question["number"] = (index+1).toString();
+                        } else {
+                            question["show_question"] = false;
+                            question["number"] = (index+1).toString();
+                        }
+                    });
+                    context.commit("setQuestions", data.results);
+                })
+                .catch((error) => console.log("Failed to fetch questions! Error: " + error))
+        },
+        resetQuiz(context) {
+            context.commit("emptyAnswers");
+            context.dispatch("fetchQuestions");
+            context.commit("setIndexOfCurrentQuestion", 0)
         }
     }
 })

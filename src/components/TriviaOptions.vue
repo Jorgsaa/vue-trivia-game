@@ -91,7 +91,7 @@ const startTrivia = () => {
         {{ questions }}
       </button>
     </div>
-
+    
     <select class="input" v-model="categorySelected">
       <option v-for="(category, key) in categories" :key="key" :value="key">
         {{ category }}
