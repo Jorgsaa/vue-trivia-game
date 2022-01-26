@@ -35,17 +35,11 @@ const categories = {
 };
 
 const difficulties = {
-  //any: "Any Difficulty",
   easy: { name: "Easy", color: "green" },
   medium: { name: "Medium", color: "yellow" },
   hard: { name: "Hard", color: "red" },
 };
 
-const types = {
-  any: "Any Type",
-  multiple: "Multiple Choice",
-  boolean: "True / False",
-};
 
 // Get default trivia options
 const categorySelected = ref(store.getters.getQuestionCategory);
