@@ -167,6 +167,9 @@ const store = createStore({
         usernameExists(context) {
             return store.dispatch("fetchUsers").then(json => json.length !== 0)
         },
+        fetchHighscore(context) {
+            return store.dispatch("fetchUsers").then(users => users[0]).then(user => user.highScore)
+        },
         submitScore(context) {
             store.dispatch("usernameExists").then((userExists) => {
                 if (userExists) {
