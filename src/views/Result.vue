@@ -1,7 +1,9 @@
 <template>
     <section class="container">
-        <h2>Results</h2>
-        <p class="final-score">Final score: {{score}}/{{questions.length * 10}}</p>
+        <div class="result-and-score">
+            <h2>Results</h2>
+            <p class="score">Score: {{score}}/{{questions.length * 10}}</p>
+        </div>
         <ResultList  />
         <div class="buttons">
             <button @click="homeClicked">Home</button>
@@ -42,16 +44,24 @@ const playAgainClicked = () => {
         width: 50vw;
         height: 50vh;
         background-color: gray;
-        padding: 25px;
+        padding: 10px 25px 10px 25px;
+        border-radius: 10px;
+        
 
-        display: flex;
+        /*display: flex;
         flex-direction: column;
         justify-content: space-between;
-        overflow: hidden;
+        overflow: hidden;*/
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 5fr 1fr;
+        gap: 2.5%;
     }
 
-    h2, .final-score {
+    .result-and-score {
         text-align: center;
+        font-size: 125%;
+        padding: 0.5em;
     }
 
     ol {
@@ -62,11 +72,6 @@ const playAgainClicked = () => {
         overflow: hidden;
         overflow-y: scroll;
         gap: 5px;
-    }
-
-    li {
-        height: 50px;
-        background-color: violet;
     }
 
     .buttons {
