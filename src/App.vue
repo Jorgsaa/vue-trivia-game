@@ -6,10 +6,6 @@
   <div class="vertical-layout">
     <header>
       <h1>Trivia</h1>
-      Temporary route links:
-      <router-link to="/">Start</router-link>
-      <router-link to="/question">Question</router-link>
-      <router-link to="/result">Result</router-link>
     </header>
     <main class="middle">
       <router-view />
