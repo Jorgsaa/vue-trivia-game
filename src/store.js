@@ -125,6 +125,9 @@ const store = createStore({
         getIsUserRegistered: (state) => {
             return state.username !== ""
         },
+        getAnswers: (state) => {
+            return state.answers
+        },
     },
     actions: {
         fetchApiSessionToken (context) {
