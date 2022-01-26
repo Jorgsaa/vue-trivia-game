@@ -82,6 +82,7 @@ const submitAnswer = (choice) => {
 
 
 onMounted(() => {
+    // Waiting to fetch questions
     store.commit('setNumberOfQuestions')
     if (props.question.type === "multiple") {
         randomizeChoices()
