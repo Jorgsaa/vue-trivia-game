@@ -17,8 +17,6 @@ import { onMounted, ref } from "vue"
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
-const triviaURL = "https://jorgsaa-noroff-assignment-api.herokuapp.com/trivia"
-const triviaToken = "uEzYwhrkm0OmaPQRfHSqz2OsKL8nsxK3AiqVkJkPjCv2lbiLnDyDkzOCGMm1A1gG"
 
 const props = defineProps({
     question: {
@@ -79,22 +77,6 @@ const submitAnswer = (choice) => {
     nextQuestion()
 }
 
-// Submit score to Trivia API
-const submitScore = async () => {
-    fetch(triviaURL, {
-        method: "POST",
-        headers: {
-            'X-API-Key': triviaToken,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ 
-            username: store.getters.getUsername, 
-            // TODO: Compute score
-            highScore: 10
-        })
-    }).then(console.log)
-}
-
 const nextQuestion = () => {
     // Get next question
     store.commit('increaseIndexOfCurrentQuestion')
@@ -106,7 +88,7 @@ const nextQuestion = () => {
 
         store.commit('showCurrentQuestion')
     } else {
-        submitScore().then(() => router.push({name: 'result'}))
+        store.dispatch("submitScore").then(() => router.push({name: 'result'}))
     }
 }
 

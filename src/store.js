@@ -155,6 +155,21 @@ const store = createStore({
             context.commit("emptyAnswers");
             context.dispatch("fetchQuestions");
             context.commit("setIndexOfCurrentQuestion", 0)
+        },
+        submitScore(context) {
+            return fetch(store.getters.getTriviaURL, {
+                method: "POST",
+                headers: {
+                    'X-API-Key': context.getters.getTriviaToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: context.getters.getUsername,
+                    // TODO: Compute score
+                    highScore: 10
+                })
+            })
+            .catch((error) => console.log("Failed to submit score! Error: " + error))
         }
     }
 })
