@@ -17,6 +17,8 @@ const store = createStore({
         apiUrlPath: "https://opentdb.com/api.php",
         apiSessionToken: '',
         questions: [],
+        indexOfCurrentQuestion: 0,
+        numberOfQuestions: 0,
         answers: [],
     },
     mutations: {
@@ -34,6 +36,12 @@ const store = createStore({
         },
         setQuestions: (state, payload) => {
             state.questions = payload;
+        },
+        setIndexOfCurrentQuestion: (state, payload) => {
+            state.indexOfCurrentQuestion = payload;
+        },
+        setNumberOfQuestions: (state) => {
+            state.numberOfQuestions = state.questions.length;
         },
         addQuestion: (state, payload) => {
             state.questions.push(payload)
@@ -57,6 +65,15 @@ const store = createStore({
         },
         setApiSessionToken: (state, payload) => {
             state.apiSessionToken = payload;
+        },
+        increaseIndexOfCurrentQuestion: (state) => {
+            state.indexOfCurrentQuestion++
+        },
+        showCurrentQuestion: (state) => {
+            store.state.questions[state.indexOfCurrentQuestion].show_question = true 
+        },
+        hideCurrentQuestion: (state) => {
+            store.state.questions[state.indexOfCurrentQuestion].show_question = false 
         }
     },
     getters: {
@@ -83,6 +100,12 @@ const store = createStore({
         },
         getApiSessionToken: (state) => {
             return state.apiSessionToken;
+        },
+        getNumberOfQuestions: (state) => {
+            return state.numberOfQuestions
+        },
+        getIndexOfCurrentQuestion: (state) => {
+            return state.indexOfCurrentQuestion
         }
     },
     actions: {
@@ -116,6 +139,7 @@ const store = createStore({
         resetQuiz(context) {
             context.commit("emptyAnswers");
             context.dispatch("fetchQuestions");
+            context.commit("setIndexOfCurrentQuestion", 0)
         }
     }
 })

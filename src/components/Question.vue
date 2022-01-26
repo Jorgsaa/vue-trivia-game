@@ -13,14 +13,11 @@
 
 
 <script setup>
-import { onMounted, ref, computed } from "vue"
+import { onMounted, ref } from "vue"
+import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 const props = defineProps({
-    numberOfQuestions: {
-        type: Number,
-        required: true,
-    },
     question: {
         type: Object,
         required: true,
@@ -28,7 +25,8 @@ const props = defineProps({
 })
 
 const store = useStore()
-const answers = computed(() => store.state.answers)
+const router = useRouter();
+const numberOfQuestions = ref(store.getters.getNumberOfQuestions)
 const choice1 = ref("True")
 const choice2 = ref("False")
 const choice3 = ref("Choice 3")
@@ -71,17 +69,33 @@ const shuffle = (array) => {
   return array
 }
 
-const emit = defineEmits(['next-question'])
 // Submit answer, hide current question, then go to next question
 const submitAnswer = (choice) => {
     store.commit('submitAnswer', {"question":props.question.question, "correct_answer":props.question.correct_answer, "answer":choice, "number":props.question.number})
-    props.question.show_question = false
-    // Was thinking of moving the logic of goint to the next question here to remove emit, but it makes more sence to have it in Questions.vue (don't need to have a variable that holds questions in a file meant for one question)
-    emit('next-question')
+    store.commit('hideCurrentQuestion')
+    nextQuestion()
+}
+
+const nextQuestion = () => {
+    // Get next question
+    store.commit('increaseIndexOfCurrentQuestion')
+    const indexOfCurrentQuestion = store.getters.getIndexOfCurrentQuestion
+
+    // Go to next question. If no more questions -> got to the resultscreen
+    const nemberOfQuestions = store.getters.getNumberOfQuestions
+    if (indexOfCurrentQuestion < nemberOfQuestions) {
+
+        store.commit('showCurrentQuestion')
+    } else {
+        router.push({name: 'result'})
+    }
 }
 
 
 onMounted(() => {
+    // Waiting to fetch questions
+    store.commit('setNumberOfQuestions')
+    numberOfQuestions.value = store.getters.getNumberOfQuestions
     if (props.question.type === "multiple") {
         randomizeChoices()
     }
