@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
-import { useStore } from 'vuex';
-import { useRouter } from 'vue-router'
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 const store = useStore();
 const router = useRouter();
@@ -53,14 +53,12 @@ const categorySelected = ref(store.getters.getQuestionCategory);
 const difficultySelected = ref(store.getters.getQuestionDifficulty);
 const typeSelected = ref(store.getters.getQuestionType);
 
-
-
 const startTrivia = () => {
   // Set trivia choices
-  store.commit('setQuestionsSelected', questionsSelected);
-  store.commit('setQuestionCategory', categorySelected);
-  store.commit('setQuestionDifficulty', difficultySelected);
-  store.commit('setQuestionType', typeSelected);
+  store.commit("setQuestionsSelected", questionsSelected);
+  store.commit("setQuestionCategory", categorySelected);
+  store.commit("setQuestionDifficulty", difficultySelected);
+  store.commit("setQuestionType", typeSelected);
 
   // Create api-url
   const apiUrl = store.getters.getApiUrl;
@@ -73,56 +71,53 @@ const startTrivia = () => {
   //TODO
 
   // Go to Questions.vue to start playing
-  router.push({name: 'question'})
+  router.push({ name: "question" });
 };
 </script>
 
 <template>
-  <h2>TriviaOptions</h2>
+  <div class="root">
+    <h2>Trivia</h2>
 
-  <input
-    min="1"
-    max="50"
-    v-model="questionsSelected"
-    placeholder="Number of questions"
-    type="number"
-  />
-  <br />
+    <input
+      min="1"
+      max="50"
+      v-model="questionsSelected"
+      placeholder="Number of questions"
+      type="number"
+    />
+    <br />
 
-  <select v-model="categorySelected">
-    <option v-for="(category, key) in categories" :key="key" :value="key">
-      {{ category }}
-    </option>
-  </select>
-  <br />
+    <select v-model="categorySelected">
+      <option v-for="(category, key) in categories" :key="key" :value="key">
+        {{ category }}
+      </option>
+    </select>
+    <br />
 
-  <select v-model="difficultySelected">
-    <option v-for="(difficulty, key) in difficulties" :key="key" :value="key">
-      {{ difficulty }}
-    </option>
-  </select>
-  <br />
+    <select v-model="difficultySelected">
+      <option v-for="(difficulty, key) in difficulties" :key="key" :value="key">
+        {{ difficulty }}
+      </option>
+    </select>
+    <br />
 
-  <select v-model="typeSelected">
-    <option v-for="(type, key) in types" :key="key" :value="key">
-      {{ type }}
-    </option>
-  </select>
-  <br />
-
-  <!-- TODO: pass this url or these parameters to the Question view (?) -->
-  {{
-    (`https://opentdb.com/api.php?amount=${questionsSelected > 0 && questionsSelected <= 50 ? questionsSelected : 10}`) + 
-  (categorySelected !== "any" ? `&category=${categorySelected}` : "") +
-  (difficultySelected !== "any" ? `&difficulty=${difficultySelected}` : "") +
-  (typeSelected !== "any" ? `&type=${typeSelected !== "any" ? typeSelected : null}` :  "")
-  }}
-
-  <br />
-
-  <br />
-  <button type="button" @click="startTrivia">Start</button>
+    <select v-model="typeSelected">
+      <option v-for="(type, key) in types" :key="key" :value="key">
+        {{ type }}
+      </option>
+    </select>
+    <br />
+    <input type="text" placeholder="Username" />
+    <button type="button" @click="startTrivia">Start</button>
+  </div>
 </template>
 
 <style scoped>
+.root {
+  background-color: #dedede;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+}
 </style>
