@@ -16,6 +16,8 @@ const store = createStore({
         questionType: 'any',
         questionCategory: 'any',
         apiUrlPath: "https://opentdb.com/api.php",
+        triviaURL: "https://jorgsaa-noroff-assignment-api.herokuapp.com/trivia",
+        triviaToken: "uEzYwhrkm0OmaPQRfHSqz2OsKL8nsxK3AiqVkJkPjCv2lbiLnDyDkzOCGMm1A1gG",
         apiSessionToken: '',
         questions: [],
         indexOfCurrentQuestion: 0,
@@ -105,6 +107,12 @@ const store = createStore({
             (state.questionType !== `any` ? `&type=${state.questionType}` : ``) +
             (state.apiSessionToken.length != 0 ? `&token=${state.apiSessionToken}` : ``)
         },
+        getTriviaURL: (state) => {
+            return state.triviaURL
+        },
+        getTriviaToken: (state) => {
+            return state.triviaToken
+        },
         getApiSessionToken: (state) => {
             return state.apiSessionToken;
         },
@@ -147,6 +155,21 @@ const store = createStore({
             context.commit("emptyAnswers");
             context.dispatch("fetchQuestions");
             context.commit("setIndexOfCurrentQuestion", 0)
+        },
+        submitScore(context) {
+            return fetch(store.getters.getTriviaURL, {
+                method: "POST",
+                headers: {
+                    'X-API-Key': context.getters.getTriviaToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: context.getters.getUsername,
+                    // TODO: Compute score
+                    highScore: 10
+                })
+            })
+            .catch((error) => console.log("Failed to submit score! Error: " + error))
         }
     }
 })
