@@ -79,6 +79,22 @@ const submitAnswer = (choice) => {
     nextQuestion()
 }
 
+// Submit score to Trivia API
+const submitScore = async () => {
+    fetch(triviaURL, {
+        method: "POST",
+        headers: {
+            'X-API-Key': triviaToken,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+            username: store.getters.getUsername, 
+            // TODO: Compute score
+            highScore: 10
+        })
+    }).then(console.log)
+}
+
 const nextQuestion = () => {
     // Get next question
     store.commit('increaseIndexOfCurrentQuestion')
@@ -90,7 +106,7 @@ const nextQuestion = () => {
 
         store.commit('showCurrentQuestion')
     } else {
-        router.push({name: 'result'})
+        submitScore().then(() => router.push({name: 'result'}))
     }
 }
 
