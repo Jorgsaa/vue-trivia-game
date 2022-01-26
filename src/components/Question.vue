@@ -17,10 +17,6 @@ import { onMounted, ref, computed } from "vue"
 import { useStore } from 'vuex'
 
 const props = defineProps({
-    numberOfQuestions: {
-        type: Number,
-        required: true,
-    },
     question: {
         type: Object,
         required: true,
@@ -29,6 +25,7 @@ const props = defineProps({
 
 const store = useStore()
 const answers = computed(() => store.state.answers)
+const numberOfQuestions = ref(store.getters.getNumberOfQuestions)
 const choice1 = ref("True")
 const choice2 = ref("False")
 const choice3 = ref("Choice 3")
@@ -84,6 +81,7 @@ const submitAnswer = (choice) => {
 onMounted(() => {
     // Waiting to fetch questions
     store.commit('setNumberOfQuestions')
+    numberOfQuestions.value = store.getters.getNumberOfQuestions
     if (props.question.type === "multiple") {
         randomizeChoices()
     }

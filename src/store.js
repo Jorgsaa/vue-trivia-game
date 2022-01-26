@@ -41,7 +41,6 @@ const store = createStore({
             state.indexOfCurrentQuestion = payload;
         },
         setNumberOfQuestions: (state) => {
-            console.log(state.questions.length)
             state.numberOfQuestions = state.questions.length;
         },
         addQuestion: (state, payload) => {

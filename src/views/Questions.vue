@@ -1,7 +1,7 @@
 <template>
     <h1>Question</h1>
     <div v-for="question in questions" :key="question.question">
-        <Question :question="question" :numberOfQuestions="questions.length" v-if="question.show_question" @next-question="nextQuestion" />
+        <Question :question="question" v-if="question.show_question" @next-question="nextQuestion" />
     </div>
 </template>
 
