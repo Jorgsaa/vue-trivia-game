@@ -22,8 +22,8 @@ const router = useRouter();
 const answers = computed(() => store.state.answers);
 const questions = computed(() => store.state.questions);
 
-const scoreReducer = (acc, answer) => acc + (answer.answer === answer.correct_answer ? 10 : 0);
-const score = computed(() => answers.value.reduce(scoreReducer, 0));
+const score = computed(() => store.getters.getLocalScore);
+const scoreRef = ref(score)
 
 const homeClicked = () => {
     router.push({name: "start"});
