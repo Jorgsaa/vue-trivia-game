@@ -198,7 +198,7 @@ const store = createStore({
         // Fetches the first user with matching username, and returns the highScore of that user
         // Assumes that usernames are unique
         fetchHighscore(context) {
-            return store.dispatch("fetchUsers").then(users => users[0]).then(user => user.highScore)
+            return store.dispatch("fetchUsers").then(users => users[0]).then(user => user ? user.highScore : 0)
         },
         // Submits the score to the API.
         // If the user exists:
