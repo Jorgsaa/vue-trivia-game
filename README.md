@@ -4,8 +4,6 @@
 
 Trivia game application built using Vue 3 + Vite
 
-TODO: Fill out this long description.
-
 ## Table of Contents
 
 - [Assignment 2: Trivia Game](#assignment-2-trivia-game)
