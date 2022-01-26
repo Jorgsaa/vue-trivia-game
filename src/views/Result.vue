@@ -41,6 +41,12 @@ const playAgainClicked = () => {
 const fetchHighscore = store.dispatch("fetchHighscore")
     .then(highScore => Math.max(highScore, score.localScore))
     .then(max => score.highScore = max)
+
+
+// Redirect user if he/she enters the site in a different place than the start-screen
+if (!store.getters.getIsUserRegistered) {
+    router.push({name: "start"})
+}
 </script>
 
 <style scoped>
