@@ -40,8 +40,9 @@ const store = createStore({
         setIndexOfCurrentQuestion: (state, payload) => {
             state.indexOfCurrentQuestion = payload;
         },
-        setNumberOfQuestions: (state, payload) => {
-            state.numberOfQuestions = payload;
+        setNumberOfQuestions: (state) => {
+            console.log(state.questions.length)
+            state.numberOfQuestions = state.questions.length;
         },
         addQuestion: (state, payload) => {
             state.questions.push(payload)

@@ -19,9 +19,13 @@ const questions = computed(() => store.state.questions)
 // Go to next question. If no more questions -> got to Result.vue
 let indexOfCurrentQuestion = store.getters.getIndexOfCurrentQuestion
 const nextQuestion = () => {
+    // Get next question
     store.commit('increaseIndexOfCurrentQuestion')
     indexOfCurrentQuestion = store.getters.getIndexOfCurrentQuestion
-    if (indexOfCurrentQuestion < questions.value.length) {
+    const nemberOfQuestions = store.getters.getNumberOfQuestions
+    
+    
+    if (indexOfCurrentQuestion < nemberOfQuestions) {
         questions.value[indexOfCurrentQuestion].show_question = true 
     } else {
         router.push({name: 'result'})

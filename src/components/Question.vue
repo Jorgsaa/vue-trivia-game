@@ -82,6 +82,7 @@ const submitAnswer = (choice) => {
 
 
 onMounted(() => {
+    store.commit('setNumberOfQuestions')
     if (props.question.type === "multiple") {
         randomizeChoices()
     }
