@@ -13,10 +13,10 @@
 </template>
 
 <script setup>
-import ResultList from '../components/ResultList.vue';
 import { computed, reactive } from "vue";
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+import ResultList from '../components/ResultList.vue';
 
 const store = useStore();
 const router = useRouter();
@@ -27,14 +27,18 @@ let score = reactive({
     localScore: store.getters.getLocalScore
 })
 
+// Routes back to start page
 const homeClicked = () => {
-    router.push({name: "start"});
-    // Quiz is reset when user presses "start" button in the "start" route
+    router.push({name: "start"})
+        .catch((error) => console.error("Error on homeClicked! Error: ", error));
 };
+
+// Resets the quiz by clearing answers 
+// and fetching new questions with same options (difficulty, category, etc..)
 const playAgainClicked = () => {
     router.push({name: "question"})
         .then(() => store.dispatch("resetQuiz"))
-        .catch((error) => console.log("Error on playAgainClicked! Error: ", error));
+        .catch((error) => console.error("Error on playAgainClicked! Error: ", error));
 }
 
 
@@ -58,11 +62,6 @@ if (!store.getters.getIsUserRegistered) {
         padding: 10px 25px 10px 25px;
         border-radius: 10px;
         
-
-        /*display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        overflow: hidden;*/
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 5fr 1fr;

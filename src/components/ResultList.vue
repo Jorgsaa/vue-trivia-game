@@ -5,9 +5,10 @@
 </template>
 
 <script setup>
-import { computed, reactive } from "vue";
-import ResultElement from "./ResultElement.vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
+import ResultElement from "./ResultElement.vue";
+
 const store = useStore();
 
 const questions = computed(() => store.state.questions);

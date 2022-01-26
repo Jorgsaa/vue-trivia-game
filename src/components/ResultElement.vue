@@ -12,8 +12,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed } from "vue"
-import { useStore } from 'vuex'
+import { computed } from "vue"
 
 const props = defineProps({
     question: {
@@ -39,6 +38,7 @@ if (props.question.number <= answers.value.length) {
     correctAnswer.value = props.question.correct_answer
 }
 
+// Used in template to conditionally render background green/red for correct/wrong answer.
 const isCorrectAnswer = computed(() => props.question.correct_answer === userAnswer.value);
 </script>
 
@@ -98,9 +98,5 @@ const isCorrectAnswer = computed(() => props.question.correct_answer === userAns
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-
-
     }
-
-
 </style>
