@@ -12,11 +12,11 @@ const categories = {
   10: "Entertainment: Books",
   11: "Entertainment: Film",
   12: "Entertainment: Music",
-  13: "Entertainment: Musicals &amp; Theatres",
+  13: "Entertainment: Musicals & Theatres",
   14: "Entertainment: Television",
   15: "Entertainment: Video Games",
   16: "Entertainment: Board Games",
-  17: "Science &amp; Nature",
+  17: "Science & Nature",
   18: "Science: Computers",
   19: "Science: Mathematics",
   20: "Mythology",
@@ -30,8 +30,8 @@ const categories = {
   28: "Vehicles",
   29: "Entertainment: Comics",
   30: "Science: Gadgets",
-  31: "Entertainment: Japanese Anime &amp; Manga",
-  32: "Entertainment: Cartoon &amp; Animations",
+  31: "Entertainment: Japanese Anime & Manga",
+  32: "Entertainment: Cartoon & Animations",
 };
 
 const difficulties = {
