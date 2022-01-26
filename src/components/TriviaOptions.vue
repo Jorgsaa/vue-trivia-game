@@ -73,6 +73,7 @@ const startTrivia = () => {
       <button
         v-for="(difficulty, key) in difficulties"
         :key="key"
+        class="button"
         :style="'background-color: ' + difficulty.color"
         @click="store.commit('setQuestionDifficulty', key)"
       >
@@ -80,22 +81,28 @@ const startTrivia = () => {
       </button>
     </div>
 
-    <div>
-      <button class="" v-for="questions in [5, 10, 15, 20, 25]" :key="questions" 
-      @click="store.commit('setQuestionsSelected', questions)">
+    <div class="width-100">
+      <button
+        class="button"
+        v-for="questions in [5, 10, 15, 20, 25]"
+        :key="questions"
+        @click="store.commit('setQuestionsSelected', questions)"
+      >
         {{ questions }}
       </button>
     </div>
-
-    <select v-model="categorySelected">
+    
+    <select class="input" v-model="categorySelected">
       <option v-for="(category, key) in categories" :key="key" :value="key">
         {{ category }}
       </option>
     </select>
     <br />
 
-    <input type="text" placeholder="Username" />
-    <button type="button" @click="startTrivia">Start</button>
+    <div class="width-100">
+      <input class="input" type="text" placeholder="Username" />
+      <button class="button" type="button" @click="startTrivia">Start</button>
+    </div>
   </div>
 </template>
 
@@ -105,5 +112,18 @@ const startTrivia = () => {
   border-radius: 10px;
   padding: 15px;
   text-align: center;
+}
+.width-100 {
+  width: 100%;
+}
+.button {
+  padding: 10px;
+  margin: 10px 0px;
+  border: none;
+}
+.input {
+  padding: 10px;
+  margin: 10px 0px;
+  width: 50%;
 }
 </style>
