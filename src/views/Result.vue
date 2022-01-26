@@ -34,6 +34,11 @@ const playAgainClicked = () => {
         .then(() => store.dispatch("resetQuiz"))
         .catch((error) => console.log("Error on playAgainClicked! Error: ", error));
 }
+
+// Redirect user if he/she enters the site in a different place than the start-screen
+if (!store.getters.getIsUserRegistered) {
+    router.push({name: "start"})
+}
 </script>
 
 <style scoped>

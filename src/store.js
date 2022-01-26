@@ -80,7 +80,7 @@ const store = createStore({
         },
         hideCurrentQuestion: (state) => {
             store.state.questions[state.indexOfCurrentQuestion].show_question = false 
-        }
+        },
     },
     getters: {
         getUsername: (state) => {
@@ -121,7 +121,10 @@ const store = createStore({
         },
         getIndexOfCurrentQuestion: (state) => {
             return state.indexOfCurrentQuestion
-        }
+        },
+        getIsUserRegistered: (state) => {
+            return state.username !== ""
+        },
     },
     actions: {
         fetchApiSessionToken (context) {
