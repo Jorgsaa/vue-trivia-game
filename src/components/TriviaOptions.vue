@@ -49,8 +49,12 @@ const types = {
 
 // Get default trivia options
 const categorySelected = ref(store.getters.getQuestionCategory);
+const usernameSelected = ref(store.getters.getUsername)
 
 const startTrivia = () => {
+  // Set username
+  store.commit("setUsername", usernameSelected)
+
   // Set trivia choices
   store.commit("setQuestionCategory", categorySelected);
 
@@ -100,7 +104,7 @@ const startTrivia = () => {
     <br />
 
     <div class="width-100">
-      <input class="input" type="text" placeholder="Username" />
+      <input class="input" v-model="usernameSelected" type="text" placeholder="Username" />
       <button class="button" type="button" @click="startTrivia">Start</button>
     </div>
   </div>
