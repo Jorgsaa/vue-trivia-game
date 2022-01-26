@@ -10,6 +10,7 @@ import { createStore } from 'vuex'
  */
 const store = createStore({
     state: {
+        username: "",
         questionsSelected: 10,
         questionDifficulty: 'any',
         questionType: 'any',
@@ -22,6 +23,9 @@ const store = createStore({
         answers: [],
     },
     mutations: {
+        setUsername: (state, payload) => {
+            state.username = payload
+        },
         setQuestionsSelected: (state, payload) => {
             state.questionsSelected = payload
         },
@@ -77,6 +81,9 @@ const store = createStore({
         }
     },
     getters: {
+        getUsername: (state) => {
+            return state.username
+        },
         getQuestionsSelected: (state) => {
             return state.questionsSelected
         },
