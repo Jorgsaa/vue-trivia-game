@@ -4,6 +4,12 @@
  */
 import { createStore } from 'vuex'
 
+// Parses unicode
+function parseUnicode(inputString) {
+    var doc = new DOMParser().parseFromString(inputString, "text/html");
+    return doc.documentElement.textContent;
+}
+
 /**
  * Store
  * @ignore
@@ -151,6 +157,15 @@ const store = createStore({
                             question["number"] = (index+1).toString();
                         }
                     });
+
+                    data.results.forEach((element) => {
+                        element.question = parseUnicode(element.question);
+                        element.correct_answer = parseUnicode(element.correct_answer);
+
+                        element.incorrect_answers.map((incorrectAnswer) => {
+                            return parseUnicode(incorrectAnswer);
+                        });
+                    })
                     context.commit("setQuestions", data.results);
                 })
                 .catch((error) => console.log("Failed to fetch questions! Error: " + error))
