@@ -3,7 +3,7 @@
  * Dependencies
  * @ignore
  */
- import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
+ import { createRouter, createWebHashHistory } from "vue-router";
  import Start from "./views/Start.vue";
  import NotFound from "./views/NotFound.vue";
  import Question from './views/Questions.vue';
