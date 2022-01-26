@@ -134,6 +134,7 @@ const store = createStore({
         resetQuiz(context) {
             context.commit("emptyAnswers");
             context.dispatch("fetchQuestions");
+            context.commit("setIndexOfCurrentQuestion", 0)
         }
     }
 })
