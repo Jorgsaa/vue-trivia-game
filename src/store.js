@@ -121,6 +121,10 @@ const store = createStore({
         },
         getIndexOfCurrentQuestion: (state) => {
             return state.indexOfCurrentQuestion
+        },
+        getLocalScore: (state) => {
+            const scoreReducer = (acc, answer) => acc + (answer.answer === answer.correct_answer ? 10 : 0);
+            return state.answers.reduce(scoreReducer, 0)
         }
     },
     actions: {
@@ -163,11 +167,19 @@ const store = createStore({
         usernameExists(context) {
             return store.dispatch("fetchUsers").then(json => json.length !== 0)
         },
+        fetchHighscore(context) {
+            return store.dispatch("fetchUsers").then(users => users[0]).then(user => user.highScore)
+        },
         submitScore(context) {
             store.dispatch("usernameExists").then((userExists) => {
                 if (userExists) {
                     store.dispatch("fetchUsers").then((users) => {
                         const user = users[0]
+
+                        // Dont submit the score if it's lower than the current one
+                        if (user.highScore > context.getters.getLocalScore)
+                            return
+
                         return fetch(`${store.getters.getTriviaURL}/${user.id}`, {
                             method: "PATCH",
                             headers: {
@@ -175,8 +187,7 @@ const store = createStore({
                                 'Content-Type': 'application/json'
                             },
                             body: JSON.stringify({
-                                // TODO: Compute score
-                                highScore: user.highScore + 1
+                                highScore: context.getters.getLocalScore
                             })
                         })
                             .catch((error) => console.log("Failed to update score! Error: " + error))
@@ -191,7 +202,7 @@ const store = createStore({
                         body: JSON.stringify({
                             username: context.getters.getUsername,
                             // TODO: Compute score
-                            highScore: 10
+                            highScore: context.getters.getLocalScore
                         })
                     })
                         .catch((error) => console.log("Failed to submit score! Error: " + error))

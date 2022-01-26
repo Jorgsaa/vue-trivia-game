@@ -1,7 +1,7 @@
 <template>
     <section class="container">
         <h2>Results</h2>
-        <p class="final-score">Final score: {{score}}/{{questions.length * 10}}</p>
+        <p class="final-score">Final score: {{score.localScore}}/{{questions.length * 10}} - High score: {{ score.highScore }}</p>
         <ResultList  />
         <div class="buttons">
             <button @click="homeClicked">Home</button>
@@ -12,18 +12,18 @@
 
 <script setup>
 import ResultList from '../components/ResultList.vue';
-import { ref, reactive, computed } from "vue";
+import { computed, reactive } from "vue";
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
-
 const store = useStore();
 const router = useRouter();
-const answers = computed(() => store.state.answers);
 const questions = computed(() => store.state.questions);
 
-const scoreReducer = (acc, answer) => acc + (answer.answer === answer.correct_answer ? 10 : 0);
-const score = computed(() => answers.value.reduce(scoreReducer, 0));
+let score = reactive({
+    highScore: 0,
+    localScore: store.getters.getLocalScore
+})
 
 const homeClicked = () => {
     router.push({name: "start"});
@@ -34,6 +34,11 @@ const playAgainClicked = () => {
         .then(() => store.dispatch("resetQuiz"))
         .catch((error) => console.log("Error on playAgainClicked! Error: ", error));
 }
+
+const fetchHighscore = store.dispatch("fetchHighscore")
+    .then(highScore => Math.max(highScore, score.localScore))
+    .then(max => score.highScore = max)
+    
 </script>
 
 <style scoped>
