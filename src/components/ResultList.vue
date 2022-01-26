@@ -23,5 +23,7 @@ const answers = computed(() => store.state.answers);
         overflow: hidden;
         overflow-y: scroll;
         gap: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 </style>

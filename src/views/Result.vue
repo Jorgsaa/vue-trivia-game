@@ -1,7 +1,9 @@
 <template>
     <section class="container">
-        <h2>Results</h2>
-        <p class="final-score">Final score: {{score}}/{{questions.length * 10}}</p>
+        <div class="result-and-score">
+            <h2>Results</h2>
+            <p class="final-score">Final score: {{score.localScore}}/{{questions.length * 10}} - High score: {{ score.highScore }}</p>
+        </div>
         <ResultList  />
         <div class="buttons">
             <button @click="homeClicked">Home</button>
@@ -12,18 +14,18 @@
 
 <script setup>
 import ResultList from '../components/ResultList.vue';
-import { ref, reactive, computed } from "vue";
+import { computed, reactive } from "vue";
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
-
 const store = useStore();
 const router = useRouter();
-const answers = computed(() => store.state.answers);
 const questions = computed(() => store.state.questions);
 
-const scoreReducer = (acc, answer) => acc + (answer.answer === answer.correct_answer ? 10 : 0);
-const score = computed(() => answers.value.reduce(scoreReducer, 0));
+let score = reactive({
+    highScore: 0,
+    localScore: store.getters.getLocalScore
+})
 
 const homeClicked = () => {
     router.push({name: "start"});
@@ -35,10 +37,10 @@ const playAgainClicked = () => {
         .catch((error) => console.log("Error on playAgainClicked! Error: ", error));
 }
 
-// Redirect user if he/she enters the site in a different place than the start-screen
-if (!store.getters.getIsUserRegistered) {
-    router.push({name: "start"})
-}
+
+const fetchHighscore = store.dispatch("fetchHighscore")
+    .then(highScore => Math.max(highScore, score.localScore))
+    .then(max => score.highScore = max)
 </script>
 
 <style scoped>
@@ -47,16 +49,24 @@ if (!store.getters.getIsUserRegistered) {
         width: 50vw;
         height: 50vh;
         background-color: gray;
-        padding: 25px;
+        padding: 10px 25px 10px 25px;
+        border-radius: 10px;
+        
 
-        display: flex;
+        /*display: flex;
         flex-direction: column;
         justify-content: space-between;
-        overflow: hidden;
+        overflow: hidden;*/
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 5fr 1fr;
+        gap: 2.5%;
     }
 
-    h2, .final-score {
+    .result-and-score {
         text-align: center;
+        font-size: 125%;
+        padding: 0.5em;
     }
 
     ol {
@@ -67,11 +77,6 @@ if (!store.getters.getIsUserRegistered) {
         overflow: hidden;
         overflow-y: scroll;
         gap: 5px;
-    }
-
-    li {
-        height: 50px;
-        background-color: violet;
     }
 
     .buttons {

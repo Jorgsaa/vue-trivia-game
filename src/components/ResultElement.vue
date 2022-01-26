@@ -1,9 +1,13 @@
 <template>
     <li v-bind:class="isCorrectAnswer ? 'correct-answer' : 'wrong-answer'">
-        <p class="textfield question-number">{{questionIndex+1}}</p>
-        <p class="textfield question">{{question.question}}</p>
-        <p class="textfield user-answer">Your answer: {{userAnswer}}</p>
-        <p class="textfield answer">Correct answer: {{correctAnswer}}</p>
+        <div class="left">
+            <p class="textfield question-number">{{questionIndex+1}}</p>
+        </div>
+        <div class="right">
+            <p class="textfield question">{{question.question}}</p>
+            <p class="textfield user-answer">Your answer: {{userAnswer}}</p>
+            <p class="textfield answer">Correct answer: {{correctAnswer}}</p>
+        </div>
     </li>
 </template>
 
@@ -49,23 +53,34 @@ const isCorrectAnswer = computed(() => props.question.correct_answer === userAns
 
     .question-number {
         background-color: white;
-        grid-column: 1;
-        grid-row: 1 / 3;
+        margin: auto;
     }
 
+    .right {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 5px;
+        padding: 5px;
+        flex-grow: 1;
+    }
+
+    .left {
+        width: 50px;
+    }
     .question {
-        grid-column: 2 / 4;
+        grid-column: 1 / 3;
         grid-row: 1 / 2;
     }
 
     .user-answer {
-        grid-column: 2 / 3;
+        grid-column: 1 / 2;
         grid-row: 2 / 3;
     }
 
     .answer {
         grid-row: 2 / 3;
-        grid-column: 3 / 4;
+        grid-column: 2 / 3;
     }
 
     .textfield {
@@ -79,11 +94,12 @@ const isCorrectAnswer = computed(() => props.question.correct_answer === userAns
         box-sizing: border-box;
         overflow: hidden;
 
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
-        gap: 5px;
-        padding: 5px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+
     }
 
 
