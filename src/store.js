@@ -68,6 +68,12 @@ const store = createStore({
         },
         increaseIndexOfCurrentQuestion: (state) => {
             state.indexOfCurrentQuestion++
+        },
+        showCurrentQuestion: (state) => {
+            store.state.questions[state.indexOfCurrentQuestion].show_question = true 
+        },
+        hideCurrentQuestion: (state) => {
+            store.state.questions[state.indexOfCurrentQuestion].show_question = false 
         }
     },
     getters: {
