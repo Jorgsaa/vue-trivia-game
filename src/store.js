@@ -156,20 +156,48 @@ const store = createStore({
             context.dispatch("fetchQuestions");
             context.commit("setIndexOfCurrentQuestion", 0)
         },
+        fetchUsers(context) {
+            return fetch(`${store.getters.getTriviaURL}?username=${store.getters.getUsername}`)
+            .then(response => response.json())
+        },
+        usernameExists(context) {
+            return store.dispatch("fetchUsers").then(json => json.length !== 0)
+        },
         submitScore(context) {
-            return fetch(store.getters.getTriviaURL, {
-                method: "POST",
-                headers: {
-                    'X-API-Key': context.getters.getTriviaToken,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: context.getters.getUsername,
-                    // TODO: Compute score
-                    highScore: 10
-                })
-            })
-            .catch((error) => console.log("Failed to submit score! Error: " + error))
+            store.dispatch("usernameExists").then((userExists) => {
+                if (userExists) {
+                    store.dispatch("fetchUsers").then((users) => {
+                        const user = users[0]
+                        return fetch(`${store.getters.getTriviaURL}/${user.id}`, {
+                            method: "PATCH",
+                            headers: {
+                                'X-API-Key': context.getters.getTriviaToken,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                // TODO: Compute score
+                                highScore: user.highScore + 1
+                            })
+                        })
+                            .catch((error) => console.log("Failed to update score! Error: " + error))
+                    })
+                } else {
+                    return fetch(store.getters.getTriviaURL, {
+                        method: "POST",
+                        headers: {
+                            'X-API-Key': context.getters.getTriviaToken,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            username: context.getters.getUsername,
+                            // TODO: Compute score
+                            highScore: 10
+                        })
+                    })
+                        .catch((error) => console.log("Failed to submit score! Error: " + error))
+                }
+            }
+            )
         }
     }
 })
