@@ -17,6 +17,9 @@ import { onMounted, ref } from "vue"
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
+const triviaURL = "https://jorgsaa-noroff-assignment-api.herokuapp.com/trivia"
+const triviaToken = "uEzYwhrkm0OmaPQRfHSqz2OsKL8nsxK3AiqVkJkPjCv2lbiLnDyDkzOCGMm1A1gG"
+
 const props = defineProps({
     question: {
         type: Object,
