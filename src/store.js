@@ -98,6 +98,7 @@ const store = createStore({
         getQuestionCategory: (state) => {
             return state.questionCategory
         },
+        // Build OpenTDB API url from current state
         getApiUrl: (state) => {
             return state.apiUrlPath +
             `?` +
@@ -122,12 +123,14 @@ const store = createStore({
         getIndexOfCurrentQuestion: (state) => {
             return state.indexOfCurrentQuestion
         },
+        // Correct answers * 10
         getLocalScore: (state) => {
             const scoreReducer = (acc, answer) => acc + (answer.answer === answer.correct_answer ? 10 : 0);
             return state.answers.reduce(scoreReducer, 0)
         }
     },
     actions: {
+        // Fetch a session token for use with OpenTDB API
         fetchApiSessionToken (context) {
             if(context.getters.getApiSessionToken.length === 0) {
                 return fetch("https://opentdb.com/api_token.php?command=request")
@@ -138,6 +141,7 @@ const store = createStore({
                 .catch((error) => console.log("Failed to fetch api session token! Error: " + error));
             }
         },
+        // Fetch questions and set question number to index + 1
         fetchQuestions (context) {
             return fetch(context.getters.getApiUrl)
                 .then((response) => response.json())
@@ -155,21 +159,31 @@ const store = createStore({
                 })
                 .catch((error) => console.log("Failed to fetch questions! Error: " + error))
         },
+        // Clear current answer state and fetch new questions
         resetQuiz(context) {
             context.commit("emptyAnswers");
             context.dispatch("fetchQuestions");
             context.commit("setIndexOfCurrentQuestion", 0)
         },
+        // Fetches all users with the username within "store.state.username"
         fetchUsers(context) {
             return fetch(`${store.getters.getTriviaURL}?username=${store.getters.getUsername}`)
             .then(response => response.json())
         },
+        // Fetches all users with the current username, and returns true when not zero
         usernameExists(context) {
             return store.dispatch("fetchUsers").then(json => json.length !== 0)
         },
+        // Fetches the first user with matching username, and returns the highScore of that user
+        // Assumes that usernames are unique
         fetchHighscore(context) {
             return store.dispatch("fetchUsers").then(users => users[0]).then(user => user.highScore)
         },
+        // Submits the score to the API.
+        // If the user exists:
+        //   PATCH current user with new score if (current score > highScore)
+        // else:
+        //   POST current user and score
         submitScore(context) {
             store.dispatch("usernameExists").then((userExists) => {
                 if (userExists) {
@@ -201,7 +215,6 @@ const store = createStore({
                         },
                         body: JSON.stringify({
                             username: context.getters.getUsername,
-                            // TODO: Compute score
                             highScore: context.getters.getLocalScore
                         })
                     })
