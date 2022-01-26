@@ -17,6 +17,8 @@ const store = createStore({
         apiUrlPath: "https://opentdb.com/api.php",
         apiSessionToken: '',
         questions: [],
+        indexOfCurrentQuestion: 0,
+        numberOfQuestions: 0,
         answers: [],
     },
     mutations: {
@@ -34,6 +36,12 @@ const store = createStore({
         },
         setQuestions: (state, payload) => {
             state.questions = payload;
+        },
+        setIndexOfCurrentQuestion: (state, payload) => {
+            state.indexOfCurrentQuestion = payload;
+        },
+        setNumberOfQuestions: (state, payload) => {
+            state.numberOfQuestions = payload;
         },
         addQuestion: (state, payload) => {
             state.questions.push(payload)
@@ -57,6 +65,9 @@ const store = createStore({
         },
         setApiSessionToken: (state, payload) => {
             state.apiSessionToken = payload;
+        },
+        increaseIndexOfCurrentQuestion: (state) => {
+            state.indexOfCurrentQuestion++
         }
     },
     getters: {
@@ -83,6 +94,12 @@ const store = createStore({
         },
         getApiSessionToken: (state) => {
             return state.apiSessionToken;
+        },
+        getNumberOfQuestions: (state) => {
+            return state.numberOfQuestions
+        },
+        getIndexOfCurrentQuestion: (state) => {
+            return state.indexOfCurrentQuestion
         }
     },
     actions: {
