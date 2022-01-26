@@ -1,6 +1,6 @@
 <template>
     <ol>
-        <ResultElement v-for="(question, index) in questions" :key="index" :questionIndex="index" :question="question" :answer="answers[index]" />
+        <ResultElement v-for="(question, index) in questions" :key="index" :questionIndex="index" :question="question" />
     </ol>
 </template>
 

@@ -10,9 +10,17 @@
 import { computed } from "vue";
 import Question from '../components/Question.vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+
 
 const store = useStore()
+const router = useRouter();
 const questions = computed(() => store.state.questions)
+
+// Redirect user if he/she enters the site in a different place than the start-screen
+if (!store.getters.getIsUserRegistered) {
+    router.push({name: "start"})
+}
 </script>
 
 

@@ -86,7 +86,7 @@ const store = createStore({
         },
         hideCurrentQuestion: (state) => {
             store.state.questions[state.indexOfCurrentQuestion].show_question = false 
-        }
+        },
     },
     getters: {
         getUsername: (state) => {
@@ -131,7 +131,13 @@ const store = createStore({
         getLocalScore: (state) => {
             const scoreReducer = (acc, answer) => acc + (answer.answer === answer.correct_answer ? 10 : 0);
             return state.answers.reduce(scoreReducer, 0)
-        }
+        },
+        getIsUserRegistered: (state) => {
+            return state.username !== ""
+        },
+        getAnswers: (state) => {
+            return state.answers
+        },
     },
     actions: {
         fetchApiSessionToken (context) {

@@ -1,12 +1,12 @@
 <template>
-    <li v-bind:class="correctAnswer ? 'correct-answer' : 'wrong-answer'">
+    <li v-bind:class="isCorrectAnswer ? 'correct-answer' : 'wrong-answer'">
         <div class="left">
             <p class="textfield question-number">{{questionIndex+1}}</p>
         </div>
         <div class="right">
             <p class="textfield question">{{question.question}}</p>
-            <p class="textfield user-answer">Your answer: {{answer.answer}}</p>
-            <p class="textfield answer">Correct answer: {{answer.correct_answer}}</p>
+            <p class="textfield user-answer">Your answer: {{userAnswer}}</p>
+            <p class="textfield answer">Correct answer: {{correctAnswer}}</p>
         </div>
     </li>
 </template>
@@ -20,17 +20,26 @@ const props = defineProps({
         type: Object,
         required: true,
     },
-    answer: {
-        type: Object,
-        required: true,
-    },
     questionIndex: {
         type: Number,
         required: true,
     }
 })
 
-const correctAnswer = computed(() => props.answer.correct_answer === props.answer.answer);
+// Get user answer. if the user hasn't answered yet, then set user answer to semething like - or " "
+const store = useStore()
+const answers = computed(() => store.getters.getAnswers)
+let userAnswer = ref(" ")
+const correctAnswer = ref(" ")
+
+// Check that the current question-number isn't larger than the number of submitted answers
+if (props.question.number <= answers.value.length) {
+    const currentAnswerIndex = props.question.number -1
+    userAnswer.value = answers.value[currentAnswerIndex].answer
+    correctAnswer.value = props.question.correct_answer
+}
+
+const isCorrectAnswer = computed(() => props.question.correct_answer === userAnswer.value);
 </script>
 
 <style scoped>

@@ -37,10 +37,10 @@ const playAgainClicked = () => {
         .catch((error) => console.log("Error on playAgainClicked! Error: ", error));
 }
 
+
 const fetchHighscore = store.dispatch("fetchHighscore")
     .then(highScore => Math.max(highScore, score.localScore))
     .then(max => score.highScore = max)
-    
 </script>
 
 <style scoped>
