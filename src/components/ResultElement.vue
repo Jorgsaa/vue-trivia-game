@@ -1,9 +1,9 @@
 <template>
-    <li v-bind:class="correctAnswer ? 'correct-answer' : 'wrong-answer'">
+    <li v-bind:class="isCorrectAnswer ? 'correct-answer' : 'wrong-answer'">
         <p class="textfield question-number">{{questionIndex+1}}</p>
         <p class="textfield question">{{question.question}}</p>
         <p class="textfield user-answer">Your answer: {{userAnswer}}</p>
-        <p class="textfield answer">Correct answer: {{question.correct_answer}}</p>
+        <p class="textfield answer">Correct answer: {{correctAnswer}}</p>
     </li>
 </template>
 
@@ -26,14 +26,16 @@ const props = defineProps({
 const store = useStore()
 const answers = computed(() => store.getters.getAnswers)
 let userAnswer = ref(" ")
+const correctAnswer = ref(" ")
 
 // Check that the current question-number isn't larger than the number of submitted answers
 if (props.question.number <= answers.value.length) {
     const currentAnswerIndex = props.question.number -1
     userAnswer.value = answers.value[currentAnswerIndex].answer
+    correctAnswer.value = props.question.correct_answer
 }
 
-const correctAnswer = computed(() => props.question.correct_answer === userAnswer.value);
+const isCorrectAnswer = computed(() => props.question.correct_answer === userAnswer.value);
 </script>
 
 <style scoped>
